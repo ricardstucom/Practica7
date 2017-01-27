@@ -17,24 +17,9 @@ and open the template in the editor.
       
     </head>
     
-    <body ng-app="angularArrayApp"
+    <body >
   
-          ng-controller="controllerArrays">
-        FORMULARIO
-        Nombre Coche: <input type="text" ng-model="inputNomCoche"/>
-       Precio Coche: <input type="text" ng-model="inputPrecioCoche"/>
-       <div ng-click="addCoche()">ADD COCHE</div>
-         <select ng-model="concesSel">
-            <option value="0"> {{concesionarios[0].nombre}}</option>
-             <option value="1"> {{concesionarios[1].nombre}}</option>
-        </select>
-        <div> Nombre Conces: {{concesionarios[concesSel].nombre}} </div>
-        <div> Direccion :{{concesionarios[concesSel].direccion}}</div>
-        <div ng-repeat="patata in concesionarios[concesSel].comanda
-            track by $index">
-            <div>Nom Coche:  {{patata.nombre}}</div>
-            <div>Precio Coche: {{patata.precio}}</div>
-        </div>
+ 
        
     </body>
 </html>
