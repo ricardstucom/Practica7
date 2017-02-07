@@ -10,3 +10,6 @@ html,body,#popUp{
     min-width: 75px; 
     display: inline-block; 
 } 
+.crearEquip{
+    background-color: red;
+}

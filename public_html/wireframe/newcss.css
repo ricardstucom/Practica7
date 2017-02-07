@@ -1,0 +1,48 @@
+
+.relleno{
+    height: 50px;
+}
+.relleno2{
+    height: 30px;
+}
+
+.avatar{
+   
+    width: 150px;
+    height:130px; 
+    
+}
+.photo{
+     width: 220px;
+    height:230px; 
+    
+}
+.avatarGeneral{
+   
+}
+.camposMenu{
+    border: 1px black solid;
+}
+.navbar-default{
+    background-color: #ffffff !important;
+    border-color: #ffffff !important;
+} 
+.navbar-brand{
+    padding-right: 15px !important;
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+    padding-left: 0 !important;
+}
+.nav{
+    height:150px;
+}
+.row.imagenes{
+    text-align: center;
+    height: 230px;
+}
+.oferta{
+    color: white;
+    height: 100%;
+    width: 60px;
+    background-color: black;
+}
