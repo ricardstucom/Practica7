@@ -1,131 +1,132 @@
 <!DOCTYPE html>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
+
 <html>
     <head>
         <title>TODO supply a title</title>
         <meta charset="UTF-8">
- 
+
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <link href="newcss.css" rel="stylesheet" type="text/css"/>
-        <link href="lib/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
-        <link href="lib/css/bootstrap-theme.min.css" rel="stylesheet" type="text/css"/>
         <script src="angular.min.js" type="text/javascript"></script>
         <script src="controller.js" type="text/javascript"></script>
-         <script src="lib/js/bootstrap.min.js" type="text/javascript"></script>
-          <script src="service.js" type="text/javascript"></script>
-      
+        <link href="newcss.css" rel="stylesheet" type="text/css"/>
+        <script src="service.js" type="text/javascript"></script>
+        <link href="lib/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+
+
+        <script src="lib/js/bootstrap.min.js" type="text/javascript"></script>
     </head>
-    
-    <body >
+
+
+    <body ng-app="angularArrayApp" ng-controller="control">
         <div class="container">
             <div class="row">
                 <div class="col-lg-3">
-                    Equip:  <input type="text" name="equip"/>
+                    Equip:  <input ng-model="equipon"/>
                 </div>
-                  <div class="col-lg-3">
-                      Victories: <input type="number" name="victories"/>
+                <div class="col-lg-3">
+                    Victories: <input ng-model="equipov"/>
                 </div>
-                  <div class="col-lg-3">
-                      Derrotes: <input type="number" name="derrotes"/>
+                <div class="col-lg-3">
+                    Derrotes: <input ng-model="equipod"/>
                 </div>
-                  <div class="col-lg-3">
-                      Tipus Joc: <input type="text" name="tipusJoc"/>
+                <div class="col-lg-3">
+                    Tipus Joc: <input ng-model="equipoj"/>
                 </div>
-                
+
             </div>
             <div class="row crearEquip">
-                
-                <button type="button" class="btn btn-warning">Crear Equip</button>
+
+                <button ng-click="addEquipo()" >Crear Equip</button>
             </div>
-            
+
             <div class="row">
-            <div class="col-lg-4">
-            Jugador: <input type="text" name="jugador"/>
-            </div>
-            <div class="col-lg-4">
-                Punts: <input type="number" name="punts"/>
-            </div>
-            <div class="col-lg-4">
-                <button type="button" class="btn btn-info">Afegeix/Modifica Jugador</button>
-            </div>
+                <div class="col-lg-4">
+                    Jugador: <input ng-model="jugadorn"/>
                 </div>
+                <div class="col-lg-4">
+                    Punts: <input ng-model="jugadorp"/>
+                </div>
+                <div class="col-lg-4">
+                    <button ng-click="changePlayer()" type="button" class="btn btn-info">Afegeix/Modifica Jugador</button>
+                </div>
+            </div>
             <div class="row relleno">
-                
+
             </div>
             <div class="row">
-                 <div class="col-lg-6">
-                Nickname <input type="text" name="nickname"/>
+                <div class="col-lg-6">
+                    Nickname <input ng-model="jugadorni"/>
+                </div>
+                <div class="col-lg-6">
+                    Funció Principal <input ng-model="jugadorf"/>
+                </div>
             </div>
-            <div class="col-lg-6">
-               Funció Principal <input type="text" name="funcio"/>
-            </div>
-            </div>
-          
+
         </div><br />
         <br />
         <div class="container">
             <div class="row">
                 <div class="col-lg-4">
                     Nombre Equipo:
-                </div>
-                 <div class="col-lg-4">
-                  Victóries:
-                  <br />
-                  Derrotes:
-                </div>
-              
-                 <div class="col-lg-4">
-                     Tipus Joc:  <br />
-                     Player MaxPunts:
-                </div>
-            </div>
-            <div class="row">
-               
-            </div>
-            <div class="row">
-                <div class="col-lg-2">
-                    
-                </div>
-                <div class="col-lg-2">
-                    Punts
-                </div>
-                <div class="col-lg-2">
-                    Nickname
-                </div>
-                <div class="col-lg-2">
-                    Nom
+                    <select ng-model="selected">
+                        <option ng-repeat="key in equipos track by $index" ng-value="$index">{{key.nom}}</option>
+                    </select>
                 </div>
                 <div class="col-lg-4">
+                    Victóries:{{equipos[selected].victories}}
+                    <br />
+                    Derrotes:{{equipos[selected].derrotes}}
+                </div>
+
+                <div class="col-lg-4">
+                    Tipus Joc: {{equipos[selected].tipusJoc}} <br />
+                    Player MaxPunts:{{equipos[selected].getPlayerMaxPunts().nom}}
+                </div>
+            </div>
+            <div class="row">
+
+            </div>
+            <div class="row">
+                <div class="col-lg-2">
+
+                </div>
+                <div class="col-lg-2" ng-click="ordenar('punts')">
+                    Punts
+                </div>
+                <div class="col-lg-2" ng-click="ordenar('nickname')">
+                    Nickname
+                </div>
+                <div class="col-lg-2" ng-click="ordenar('nom')">
+                    Nom
+                </div>
+                <div class="col-lg-4" ng-click="ordenar('funcio')">
                     Funció principal
                 </div>
             </div>
-            
-            <div class="row">
+
+            <div class="row" ng-repeat="key in equipos[selected].jugadors| orderBy:objeto:orden track by $index ">
                 <div class="col-lg-2">
-                    <button type="button" class="btn btn-link">Elimina</button>
+                    <button ng-click="borrar(key.nickname, selected)" type="button" class="btn btn-link">Elimina</button>
                 </div>
                 <div class="col-lg-2">
-                    
+                    {{key.punts}}
                 </div>
                 <div class="col-lg-2">
-                    
+                    {{key.nickname}}
                 </div>
                 <div class="col-lg-2">
-                   
+                    {{key.nom}}
                 </div>
                 <div class="col-lg-4">
-                  
+                    {{key.posicio}}
                 </div>
             </div>
-            
-            
-            
-            
+
+
+
+
         </div>
-       
+
     </body>
 </html>

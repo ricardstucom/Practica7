@@ -1,24 +1,38 @@
 var app = angular.module("angularArrayApp", []);
-app.controller("controllerArrays", ["$scope", "serv"
-            , function ($scope, serv) {
-                $scope.concesSel;
-                $scope.pepe = serv.pepe2;
-                $scope.concesionarios = serv.concesionarios;
-                serv.crearConcesionario("MarioKart", "Mushroom Street");
-                serv.addCocheConcesionario(0, "Stutcar", "3562", "");
-                serv.addCocheConcesionario(0, "AngulCar", "73627", "");
+app.controller("control", ["$scope", "datos"
+    , function ($scope, datos) {
 
-                serv.crearConcesionario("StutKart", "Pelayo Street");
-                serv.addCocheConcesionario(1, "DAWCAR", "234262", "");
-                serv.addCocheConcesionario(1, "Daw2CarPLusTurboOxiaction", "73627", "");
-                $scope.addCoche = function(){
-                    serv.addCocheConcesionario(
-                            $scope.concesSel, 
-                            $scope.inputNomCoche,
-                            $scope.inputPrecioCoche
-                                    
-                                    );
-                };
+       
+        $scope.equipos = datos.equipos;
 
-            }]
-        );
+        $scope.addEquipo = function(){
+            datos.createEquipo($scope.equipon,$scope.equipov,$scope.equipod,$scope.equipoj);
+        };
+        $scope.changePlayer = function(){
+            //TODO update no va
+            datos.createJugador($scope.jugadorni, $scope.jugadorn, $scope.jugadorf, $scope.jugadorp,$scope.selected);
+        };
+        $scope.borrar = function (nickname,selected) {
+            datos.delPlayer(nickname,selected);
+        };
+        $scope.rellenar = function (index,equipo) {
+            var p = $scope.equipos[equipo].jugadors[index];
+
+            $scope.jugadorn = p.nombre;
+            $scope.jugadorni = p.nick;
+            $scope.jugadorp = p.puntos;
+            $scope.jugadorf = p.posicio;
+        };
+
+
+        $scope.ordenar = function(objeto){
+            $scope.orden = false;
+            $scope.objeto = objeto;
+
+            if($scope.objeto === true){
+                $scope.orden = false;
+            }else{
+                $scope.orden = true;
+            }
+        };
+    }]);

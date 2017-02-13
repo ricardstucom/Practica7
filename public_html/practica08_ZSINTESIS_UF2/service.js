@@ -19,8 +19,8 @@ function Jugador(nickname, nom, posicio, punts) {
     };
 
 }
-function Equipo() {
-    this.nombre = nombre || "";
+function Equipo(nom, victories, derrotes, tipusJoc) {
+    this.nom = nom || "";
     this.victories = victories ||0;
     this.derrotes=derrotes || 0;
     this.tipusJoc= tipusJoc ||"";
@@ -47,7 +47,7 @@ return jugador;
     };
     this.delPlayer = function (nickname) {
         for (var key in this.jugadors) {
-            if (this.jugadors[key].nickname == nickname) {
+            if (this.jugadors[key].nickname === nickname) {
             this.jugadors.splice(key,1);
 
               
@@ -71,14 +71,14 @@ return jugador;
 
 
 }
-var equipo = new Equipo("equipoPrueba",10,8,"prueba");
-var jugadorPrueba = new Jugador("jugador","jugadorNick","pivot",100);
-var jugadorPrueba2= new Jugador("jugador2","jugadorNick2","pivot",100);
-var jugadorPrueba3 = new Jugador("jugador3","jugadorNick3","pivot",100);
-
-equipo.addPlayer(jugadorPrueba);
-equipo.addPlayer(jugadorPrueba2);
-equipo.addPlayer(jugadorPrueba3);
+//var equipo = new Equipo("equipoPrueba",10,8,"prueba");
+//var jugadorPrueba = new Jugador("jugador","jugadorNick","pivot",100);
+//var jugadorPrueba2= new Jugador("jugador2","jugadorNick2","pivot",100);
+//var jugadorPrueba3 = new Jugador("jugador3","jugadorNick3","pivot",100);
+//
+//equipo.addPlayer(jugadorPrueba);
+//equipo.addPlayer(jugadorPrueba2);
+//equipo.addPlayer(jugadorPrueba3);
 //document.write("Nickname"+ jugadorPrueba.nickname);
 //jugadorPrueba.nickname = "petu";
 //jugadorPrueba.nom = "pedro";
@@ -132,36 +132,39 @@ equipo.addPlayer(jugadorPrueba3);
 app.service('datos', function () {
 
     this.equipos = [];
-    this.equipos.push(equipo);
+    this.equipos.push(Equipo);
 
-    this.createEquipo = function (nombre, victories, derrotes, tipusJoc) {
+    this.createEquipo = function (nom, victories, derrotes, tipusJoc) {
 
-        var t = new Team(nombre, victories, derrotes, tipusJoc);
+        var t = new Equipo(nom, victories, derrotes, tipusJoc);
         this.equipos.push(t);
+        console.log(this.equipos);
     };
     this.createJugador = function (nickname, nom, posicio, punts, equipo) {
 
-        var p = new Player(nickname, nom, posicio, punts);
+        var p = new Jugador(nickname, nom, posicio, punts);
         console.log(p);
-        if (equipo == null) {
+        if (equipo === null) {
             console.log("sin equipo");
         } else {
             var esta = false;
-            for (key in this.teams[equipo].players) {
-                if(this.equipos[equipo].jugadors[key].nickname == nickname){
-                    p.updatePlayer(nombre,funcion,puntos);
-                    this.teams[team].players[key] = p;
+            for (key in this.equipos[equipo].jugadors) {
+                if(this.equipos[equipo].jugadors[key].nickname === nickname){
+                    p.updateJugador(nom,posicio,punts);
+                    this.equipos[equipo].jugadors[key] = p;
                     esta = true;
+                     console.log(this.equipos);
                 }
             }
-            if(esta == false){
-                this.teams[team].addPlayer(p);
+            if(esta === false){
+                this.equipos[equipo].addPlayer(p);
                 console.log("jugador añadido");
+                console.log(this.equipos);
             }else{}
         }
     };
-    this.delPlayer =  function (nick,team) {
-        this.teams[team].delPlayer(nick);
-    }
+    this.delPlayer =  function (nickname,equipo) {
+        this.equipos[equipo].delPlayer(nickname);
+    };
 
 });
